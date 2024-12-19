@@ -1,16 +1,44 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance in JavaScript</title>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+    <script>
+        // Constructor function for Car
+        function Car(make, model) {
+            this.make = make;
+            this.model = model;
+        }
 
+        // Method added to the Car prototype
+        Car.prototype.getMakeModel = function() {
+            return `${this.make} ${this.model}`;
+        };
+
+        // Constructor function for SportsCar
+        function SportsCar(make, model, topSpeed) {
+            // Call the Car constructor to set the make and model
+            Car.call(this, make, model);
+            this.topSpeed = topSpeed;
+        }
+
+        // Inherit from Car by setting SportsCar's prototype to an instance of Car
+        SportsCar.prototype = Object.create(Car.prototype);
+        SportsCar.prototype.constructor = SportsCar;
+
+        // Method added to the SportsCar prototype
+        SportsCar.prototype.getTopSpeed = function() {
+            return this.topSpeed;
+        };
+
+        // Example usage
+        const car = new SportsCar("Ferrari", "Testarossa", 200);
+        console.log(car.getMakeModel()); // Output: Ferrari Testarossa
+        console.log(car.getTopSpeed());  // Output: 200
+    </script>
 </body>
-
 </html>
+
